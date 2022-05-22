@@ -57,6 +57,11 @@ COPY --from=composer:2.0 /usr/bin/composer /usr/bin/composer
 COPY --chown=app:app . /var/www
 COPY docker/php/conf.d/php.prod.ini /etc/php7/conf.d/php.ini
 
+RUN composer install -o --no-dev --prefer-dist --no-progress \
+    && cp .env.example .env \
+    && ./artisan key:generate --ansi \
+    && composer clear-cache
+
 FROM prod as develop
 
 COPY docker/php/conf.d/php.develop.ini.ini /etc/php7/conf.d/php.ini
