@@ -28,7 +28,7 @@ CMD php-fpm -D; sleep 1; nginx
 
 HEALTHCHECK --interval=5s --timeout=5s CMD curl -f http://127.0.0.1:8080/fpm-ping || exit 1
 
-FROM registry-nginx-php-fpm as prod
+FROM registry-nginx-php-fpm as production
 
 RUN set -xe \
     && apk -U --no-cache add \
@@ -62,6 +62,6 @@ RUN composer install -o --no-dev --prefer-dist --no-progress \
     && ./artisan key:generate --ansi \
     && composer clear-cache
 
-FROM prod as develop
+FROM prod as development
 
 COPY docker/php/conf.d/php.develop.ini.ini /etc/php7/conf.d/php.ini
