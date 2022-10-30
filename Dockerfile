@@ -62,6 +62,6 @@ RUN composer install -o --no-dev --prefer-dist --no-progress \
     && ./artisan key:generate --ansi \
     && composer clear-cache
 
-FROM production as development
+FROM production as local
 
 COPY docker/php/conf.d/php.develop.ini /etc/php7/conf.d/php.ini
