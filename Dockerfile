@@ -48,6 +48,8 @@ RUN set -xe \
         php7-dom \
         php7-pdo \
         php7-pdo_pgsql \
+        php7-mysqli \
+        php7-pdo_mysql \
         php7-redis \
         php7-ctype \
         php7-opcache \
