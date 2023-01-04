@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\V1\SessionController;
+use App\Http\Controllers\Api\V1\VisitController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => '/v1'], function () {
-    Route::post('/session', [SessionController::class, 'store']);
+    Route::post('/visit', [VisitController::class, 'store']);
 });
