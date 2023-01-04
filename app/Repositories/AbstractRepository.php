@@ -8,5 +8,9 @@ use Orkhanahmadov\EloquentRepository\EloquentRepository;
 
 abstract class AbstractRepository extends EloquentRepository
 {
-
+    /** @return mixed */
+    public function getEntity()
+    {
+        return new $this->entity();
+    }
 }

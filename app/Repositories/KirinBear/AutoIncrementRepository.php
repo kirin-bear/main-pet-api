@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories;
+namespace App\Repositories\KirinBear;
 
-use App\Models\AutoIncrement;
+use App\Models\KirinBear\AutoIncrement;
+use App\Repositories\AbstractRepository;
 
 /**
  * @property AutoIncrement $model
@@ -15,6 +16,9 @@ class AutoIncrementRepository extends AbstractRepository
 {
     protected $entity = AutoIncrement::class;
 
+    /**
+     * @return AutoIncrement
+     */
     public function add(): AutoIncrement
     {
         $autoIncrement = $this->model;
