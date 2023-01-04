@@ -50,8 +50,8 @@
             "@php artisan key:generate --ansi"
         ],
         "ide-helper": [
-            "php artisan ide-helper:eloquent"
-        ],
+            "php artisan ide-helper:models"
+        ]
     },
     "extra": {
         "laravel": {
