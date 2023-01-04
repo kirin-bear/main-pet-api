@@ -54,7 +54,8 @@
         ],
         "deploy" : [
             "composer install",
-            "php artisan migrate"
+            "php artisan migrate",
+            "php artisan cache:clear"
         ]
     },
     "extra": {
