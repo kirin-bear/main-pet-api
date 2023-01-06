@@ -24,6 +24,7 @@ use Illuminate\Support\Carbon;
  * @property string $robot
  * @property string $user_agent
  * @property Carbon $created_at
+ * @property string $ip_address
  * @method static Builder|Visit newModelQuery()
  * @method static Builder|Visit newQuery()
  * @method static Builder|Visit query()
@@ -39,7 +40,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Visit whereReferer($value)
  * @method static Builder|Visit whereRobot($value)
  * @method static Builder|Visit whereUserAgent($value)
- *
+ * @method static Builder|Visit whereIpAddress($value)
  * @mixin Eloquent
  */
 class Visit extends AbstractModel

@@ -19,7 +19,6 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static Builder|AutoIncrement query()
  * @method static Builder|AutoIncrement whereCreatedAt($value)
  * @method static Builder|AutoIncrement whereId($value)
- *
  * @mixin Eloquent
  */
 class AutoIncrement extends AbstractModel

@@ -22,14 +22,16 @@ class VisitStoreUseCase
     /**
      * @param string $page
      * @param string $referer
+     * @param string $ipAddress
      *
      * @return int
      */
-    public function execute(string $page, string $referer): int
+    public function execute(string $page, string $referer, string $ipAddress): int
     {
         $session = $this->sessionRepository->getEntity();
         $session->page = $page;
         $session->referer = $referer;
+        $session->ip_address = $ipAddress;
         $session->device = $this->agent->deviceType();
         $session->device_name = $this->agent->device() ?: '';
 

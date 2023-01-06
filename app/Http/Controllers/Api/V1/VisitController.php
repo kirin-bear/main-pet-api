@@ -5,20 +5,22 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\Visit\StoreRequest;
 use App\UseCase\Visit\VisitStoreUseCase;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class VisitController extends Controller
 {
 
-    public function store(Request $request, VisitStoreUseCase $sessionStoreUseCase): JsonResponse
+    public function store(StoreRequest $request, VisitStoreUseCase $sessionStoreUseCase): JsonResponse
     {
-        $result = $sessionStoreUseCase->execute(
-            $request->getUri(),
-            is_string($request->header('referer')) ? $request->header('referer') : ''
+        $id = $sessionStoreUseCase->execute(
+            $request->getPageValue(),
+            $request->getRefererValue(),
+            $request->getClientIp() ?? ''
         );
-        return response()->json($result);
+
+        return response()->json(['id' => $id]);
     }
 
 }
