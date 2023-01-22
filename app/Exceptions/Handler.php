@@ -2,8 +2,9 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
@@ -36,20 +37,34 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {});
-
-        $this->renderable(function (AuthenticationException $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ], 401);
-        });
-
         $this->renderable(function (NotFoundHttpException $e) {
-            dd($e);
             return response()->json([
-                'message' => 'Record not found.'
+                'message' => 'Not found http'
             ], 404);
         });
+    }
 
+    /**
+     * Всегда возвращаем JSON
+     *
+     * @param ValidationException $e
+     * @param $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
+     */
+    protected function convertValidationExceptionToResponse(ValidationException $e, $request)
+    {
+        return $this->invalidJson($request, $e);
+    }
+
+    /**
+     * Всегда возвращаем JSON
+     *
+     * @param $request
+     * @param AuthenticationException $exception
+     * @return \Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        return response()->json(['message' => $exception->getMessage()], 401);
     }
 }
