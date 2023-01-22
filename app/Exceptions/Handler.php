@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
@@ -35,10 +36,16 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
+        $this->reportable(function (Throwable $e) {});
+
+        $this->renderable(function (AuthenticationException $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 401);
         });
 
         $this->renderable(function (NotFoundHttpException $e) {
+            dd($e);
             return response()->json([
                 'message' => 'Record not found.'
             ], 404);
