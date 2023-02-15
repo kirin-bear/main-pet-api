@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\VisitController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => '/v1'], function () {
     Route::post('/visit', [VisitController::class, 'store'])
-        ->withoutMiddleware('auth:sanctum')
-    ;
+        ->withoutMiddleware('auth:sanctum');
+
+    Route::get('/user/me', [UserController::class, 'me']);
 });
