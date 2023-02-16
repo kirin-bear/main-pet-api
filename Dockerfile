@@ -1,21 +1,21 @@
-FROM alpine:3.13 as registry-nginx-php-fpm
+FROM alpine:3.17 as registry-nginx-php-fpm
 
 RUN apk -U upgrade && apk add --no-cache \
     curl \
     nginx \
-    php7-fpm \
-    php7 \
+    php81-fpm \
+    php81 \
     tzdata \
-    && ln -s /usr/sbin/php-fpm7 /usr/sbin/php-fpm \
+    && ln -s /usr/sbin/php-fpm81 /usr/sbin/php-fpm \
     && addgroup --gid 1000 app \
     && adduser -S --uid 1000 -G app app \
     && mkdir -p /home/app /var/run/nginx /var/run/php /var/www/public \
     && chown -Rf app:app /home/app /var/run/nginx /var/run/php /var/www \
-    && rm -rf /var/cache/apk/* /etc/nginx/conf.d/* /etc/php7/conf.d/* /etc/php7/php-fpm.d/*
+    && rm -rf /var/cache/apk/* /etc/nginx/conf.d/* /etc/php81/conf.d/* /etc/php81/php-fpm.d/*
 
 COPY docker/nginx/nginx.conf /etc/nginx
 COPY docker/nginx/conf.d/default.conf /etc/nginx/conf.d
-COPY docker/php/php-fpm.conf /etc/php7
+COPY docker/php/php-fpm.conf /etc/php81
 COPY public/index.php /var/www/public
 
 RUN chown -Rf app:app /var
@@ -33,31 +33,35 @@ FROM registry-nginx-php-fpm as production
 RUN set -xe \
     && apk -U --no-cache add \
         nano \
-        php7-curl \
-        php7-iconv \
-        php7-json \
-        php7-mbstring \
-        php7-phar \
-        php7-openssl \
-        php7-session \
-        php7-tokenizer \
-        php7-fileinfo \
-        php7-xml \
-        php7-simplexml \
-        php7-xmlwriter \
-        php7-dom \
-        php7-pdo \
-        php7-pdo_pgsql \
-        php7-mysqli \
-        php7-pdo_mysql \
-        php7-redis \
-        php7-ctype \
-        php7-opcache \
+        php81-curl \
+        php81-iconv \
+        php81-json \
+        php81-mbstring \
+        php81-phar \
+        php81-openssl \
+        php81-session \
+        php81-tokenizer \
+        php81-fileinfo \
+        php81-xml \
+        php81-simplexml \
+        php81-xmlwriter \
+        php81-dom \
+        php81-pdo \
+        php81-cli \
+        php81-pdo_pgsql \
+        php81-mysqli \
+        php81-pdo_mysql \
+        php81-redis \
+        php81-ctype \
+        php81-opcache \
     && rm -rf /var/cache/apk/*
 
-COPY --from=composer:2.0 /usr/bin/composer /usr/bin/composer
 COPY --chown=app:app . /var/www
-COPY docker/php/conf.d/php.prod.ini /etc/php7/conf.d/php.ini
+COPY docker/php/conf.d/php.prod.ini /etc/php81/conf.d/php.ini
+
+RUN curl -sS https://getcomposer.org/installer -o composer-setup.php
+RUN php composer-setup.php --install-dir=/usr/bin --filename=composer
+RUN rm -rf composer-setup.php
 
 RUN composer install -o --no-dev --prefer-dist --no-progress \
     && cp .env.example .env \
@@ -66,4 +70,4 @@ RUN composer install -o --no-dev --prefer-dist --no-progress \
 
 FROM production as local
 
-COPY docker/php/conf.d/php.develop.ini /etc/php7/conf.d/php.ini
+COPY docker/php/conf.d/php.develop.ini /etc/php81/conf.d/php.ini
