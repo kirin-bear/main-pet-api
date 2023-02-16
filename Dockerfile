@@ -14,7 +14,7 @@ RUN apk -U upgrade && apk add --no-cache \
     && rm -rf /var/cache/apk/* /etc/nginx/conf.d/* /etc/php81/conf.d/* /etc/php81/php-fpm.d/*
 
 COPY docker/nginx/nginx.conf /etc/nginx
-COPY docker/nginx/conf.d/default.conf /etc/nginx/conf.d
+COPY docker/nginx/conf.d /etc/nginx/conf.d
 COPY docker/php/php-fpm.conf /etc/php81
 COPY public/index.php /var/www/public
 

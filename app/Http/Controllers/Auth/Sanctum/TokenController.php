@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Auth\Sanctum;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\KirinBear\UserRepository;
+use App\Models\KirinBear\User;
 use Illuminate\Hashing\HashManager;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -16,7 +16,6 @@ class TokenController extends Controller
     /**
      * Создание токена
      *
-     * @param UserRepository $userRepository
      * @param HashManager $hashManager
      * @param Request $request
      *
@@ -24,7 +23,7 @@ class TokenController extends Controller
      *
      * @throws ValidationException
      */
-    public function create(UserRepository $userRepository, HashManager $hashManager, Request $request): JsonResponse
+    public function create(HashManager $hashManager, Request $request): JsonResponse
     {
         $request->validate([
             'email' => 'required|email',
@@ -32,7 +31,7 @@ class TokenController extends Controller
             'device' => 'required|string'
         ]);
 
-        $user = $userRepository->findByEmail((string)$request->get('email'));
+        $user = User::whereEmail((string)$request->get('email'))->first();
 
         if (!$user || !$hashManager->check($request->get('password'), $user->password)) {
             throw ValidationException::withMessages([

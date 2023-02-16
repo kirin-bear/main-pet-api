@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace App\UseCase\Visit;
 
-use App\Repositories\KirinBear\VisitRepository;
+use App\Models\KirinBear\Visit;
 use Illuminate\Support\Carbon;
 use Jenssegers\Agent\Agent;
 
 class VisitStoreUseCase
 {
     private Agent $agent;
-    private VisitRepository $sessionRepository;
 
-    public function __construct(Agent $agent, VisitRepository $sessionRepository)
+    public function __construct(Agent $agent)
     {
         $this->agent = $agent;
-        $this->sessionRepository = $sessionRepository;
     }
 
     /**
@@ -28,7 +26,7 @@ class VisitStoreUseCase
      */
     public function execute(string $page, string $referer, string $ipAddress): int
     {
-        $session = $this->sessionRepository->getEntity();
+        $session = new Visit();
         $session->page = $page;
         $session->referer = $referer;
         $session->ip_address = $ipAddress;
@@ -46,7 +44,7 @@ class VisitStoreUseCase
 
         $session->user_agent = $this->agent->getUserAgent() ?: '';
 
-        $this->sessionRepository->add($session);
+        $session->save();
 
         return $session->id;
     }
