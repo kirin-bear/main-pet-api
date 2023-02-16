@@ -64,7 +64,6 @@ RUN php composer-setup.php --install-dir=/usr/bin --filename=composer
 RUN rm -rf composer-setup.php
 
 RUN composer install -o --no-dev --prefer-dist --no-progress \
-    && cp .env.example .env \
     && ./artisan key:generate --ansi \
     && ./artisan route:cache \
     && ./artisan config:cache \
