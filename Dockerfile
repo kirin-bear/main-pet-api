@@ -66,8 +66,14 @@ RUN rm -rf composer-setup.php
 RUN composer install -o --no-dev --prefer-dist --no-progress \
     && cp .env.example .env \
     && ./artisan key:generate --ansi \
+    && ./artisan route:cache \
+    && ./artisan config:cache \
     && composer clear-cache
 
 FROM production as local
+
+# для локальной разработки очищаем кэш
+RUN ./artisan route:clear \
+    && ./artisan config:clear
 
 COPY docker/php/conf.d/php.develop.ini /etc/php81/conf.d/php.ini
