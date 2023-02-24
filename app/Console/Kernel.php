@@ -23,9 +23,9 @@ class Kernel extends ConsoleKernel
      *
      * @return void
      */
-    protected function commands()
+    protected function commands(): void
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__.'/Commands/System');
 
         require base_path('routes/console.php');
     }

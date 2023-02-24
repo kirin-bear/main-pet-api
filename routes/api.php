@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => '/v1'], function () {
     Route::post('/visit', [VisitController::class, 'store'])
-        ->withoutMiddleware('auth:sanctum');
+        ->withoutMiddleware('auth:api');
 
     Route::get('/user/me', [UserController::class, 'me']);
 });

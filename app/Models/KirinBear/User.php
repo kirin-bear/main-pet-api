@@ -13,6 +13,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\PersonalAccessToken;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
  * App\Models\KirinBear\User
@@ -42,7 +43,7 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @method static Builder|User whereUpdatedAt($value)
  * @mixin Eloquent
  */
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -75,4 +76,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return string
+     */
+    public function getJWTIdentifier(): string
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getJWTCustomClaims(): array
+    {
+        return [
+            'name' => $this->name,
+        ];
+    }
 }
