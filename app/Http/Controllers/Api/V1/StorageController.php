@@ -20,7 +20,7 @@ class StorageController extends Controller
      */
     public function upload(Request $request, UploadFileUseCase $uploadFileUseCase): JsonResponse
     {
-        $files = $uploadFileUseCase->execute(...$request->file('images'));
+        $files = $uploadFileUseCase->execute($request->user(), ...$request->file('images'));
         return FileResource::collection($files)->response();
     }
 

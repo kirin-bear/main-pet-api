@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\UseCase\Storage;
 
+use App\Models\KirinBear\User;
 use App\UseCase\Storage\Dto\FileDto;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Filesystem\FilesystemManager;
@@ -26,7 +27,7 @@ class UploadFileUseCase
      *
      * @return FileDto[]
      */
-    public function execute(UploadedFile ...$uploadedFiles): array
+    public function execute(User $user, UploadedFile ...$uploadedFiles): array
     {
         $disk = $this->filesystemManager->disk('minio');
         $files = [];
@@ -35,7 +36,7 @@ class UploadFileUseCase
 
             $file = new FileDto($uploadedFile->getClientOriginalName());
 
-            $name = '/'.date('Y-m-d').'/'.$file->getName();
+            $name = '/memories/'.$user->id.'/'.date('Y-m-d').'/'.$file->getName();
 
             $isSaved = $disk->put($name, $uploadedFile->getContent(), ['visibility' => 'public']);
 
