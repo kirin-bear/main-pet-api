@@ -6,9 +6,10 @@ namespace App\UseCase\Storage;
 
 use App\Models\KirinBear\User;
 use App\UseCase\Storage\Dto\FileDto;
+use Exception;
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Filesystem\AwsS3V3Adapter;
 use Illuminate\Filesystem\FilesystemManager;
-use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UploadFileUseCase
@@ -26,11 +27,17 @@ class UploadFileUseCase
      * @param UploadedFile ...$uploadedFiles
      *
      * @return FileDto[]
+     *
+     * @throws Exception
      */
     public function execute(User $user, UploadedFile ...$uploadedFiles): array
     {
         $disk = $this->filesystemManager->disk('minio');
         $files = [];
+
+        if (!$disk instanceof AwsS3V3Adapter) {
+            throw new Exception("Неизвестный адаптер для работы с файлами");
+        }
 
         foreach ($uploadedFiles as $uploadedFile) {
 
@@ -41,7 +48,7 @@ class UploadFileUseCase
             $isSaved = $disk->put($name, $uploadedFile->getContent(), ['visibility' => 'public']);
 
             if ($isSaved) {
-                $file->setUrl($this->filesystemManager->url($name));
+                $file->setUrl($disk->url($name));
             }
 
             $files[] = $file;
