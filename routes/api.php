@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\StorageController;
 use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\VisitController;
 use Illuminate\Support\Facades\Route;
@@ -20,4 +21,6 @@ Route::group(['prefix' => '/v1'], function () {
         ->withoutMiddleware('auth:api');
 
     Route::get('/user/me', [UserController::class, 'me']);
+
+    Route::post('/storage/upload', [StorageController::class, 'upload']);
 });

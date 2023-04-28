@@ -1,0 +1,22 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Http\Resources\Api\V1\Storage;
+
+use App\Http\Resources\AbstractResource;
+use App\UseCase\Storage\Dto\FileDto;
+
+/**
+ * @property FileDto $resource
+ */
+class FileResource extends AbstractResource
+{
+    public function toArray($request): array
+    {
+        return [
+            'name' => $this->resource->getName(),
+            'url' => $this->resource->getUrl(),
+        ];
+    }
+}
