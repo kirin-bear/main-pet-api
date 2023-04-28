@@ -7,7 +7,7 @@ namespace App\UseCase\Storage\Dto;
 class FileDto
 {
     private string $name;
-    private string $url;
+    private string $url = '';
 
     public function __construct(string $name)
     {
