@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UseCase\User;
+namespace App\UseCases\User;
 
 use App\Models\KirinBear\User;
 use Illuminate\Hashing\HashManager;

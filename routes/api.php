@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\V1\MemoryController;
+use App\Http\Controllers\Api\V1\MemoryLinkController;
 use App\Http\Controllers\Api\V1\StorageController;
 use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\VisitController;
@@ -23,4 +25,7 @@ Route::group(['prefix' => '/v1'], function () {
     Route::get('/user/me', [UserController::class, 'me']);
 
     Route::post('/storage/upload', [StorageController::class, 'upload']);
+
+    Route::get('/memory', [MemoryController::class, 'index']);
+    Route::get('/memory/link', [MemoryLinkController::class, 'index']);
 });

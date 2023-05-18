@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UseCase\Visit;
+namespace App\UseCases\Visit;
 
 use App\Models\KirinBear\Visit;
 use Illuminate\Support\Carbon;

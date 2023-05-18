@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UseCase\Storage;
+namespace App\UseCases\Storage;
 
 use App\Models\KirinBear\User;
 use App\UseCase\Storage\Dto\FileDto;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UseCase\Storage\Dto;
+namespace App\UseCases\Storage\Dto;
 
 class FileDto
 {
