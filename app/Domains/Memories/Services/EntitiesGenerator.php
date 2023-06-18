@@ -6,6 +6,7 @@ namespace App\Domains\Memories\Services;
 
 use App\Domains\Memories\Entities\Memory;
 use App\Domains\Memories\Entities\MemoryLink;
+use Illuminate\Support\Str;
 
 class EntitiesGenerator
 {
@@ -20,7 +21,7 @@ class EntitiesGenerator
         $memories = [];
 
         for ($i = $firstId; $i <= $lastId; $i++) {
-            $memories[] = new Memory($i);
+            $memories[] = new Memory($i, Str::random(10));
         }
 
         return $memories;

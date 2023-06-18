@@ -21,6 +21,7 @@ class MemoryResource extends AbstractResource
     {
         return [
             'id' => $this->resource->getId(),
+            'title' => $this->resource->getTitle(),
         ];
     }
 

@@ -21,7 +21,7 @@ class MemoryIndexUseCase
      */
     public function execute(): array
     {
-        return $this->entitiesGenerator->memories(1, 100);
+        return $this->entitiesGenerator->memories(1, 50);
     }
 
 }

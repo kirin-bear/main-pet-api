@@ -21,7 +21,7 @@ class MemoryLinkIndexUseCase
      */
     public function execute(): array
     {
-        return $this->entitiesGenerator->memoriesLinks(1, 100, 5);
+        return $this->entitiesGenerator->memoriesLinks(1, 50, 5);
     }
 
 }

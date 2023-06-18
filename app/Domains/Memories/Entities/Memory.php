@@ -7,10 +7,12 @@ namespace App\Domains\Memories\Entities;
 class Memory
 {
     private int $id;
+    private string $title;
 
-    public function __construct(int $id)
+    public function __construct(int $id, string $title)
     {
         $this->id = $id;
+        $this->title = $title;
     }
 
     /**
@@ -19,6 +21,14 @@ class Memory
     public function getId(): int
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
     }
 
 }
