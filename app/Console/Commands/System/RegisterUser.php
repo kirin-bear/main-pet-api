@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands\System;
 
-use App\UseCase\User\UserRegistrationUseCase;
+use App\UseCases\User\UserRegistrationUseCase;
 use Illuminate\Console\Command;
 use Illuminate\Validation\ValidationException;
 
