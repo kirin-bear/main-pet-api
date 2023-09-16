@@ -30,6 +30,9 @@ HEALTHCHECK --interval=5s --timeout=5s CMD curl -f http://127.0.0.1:8080/fpm-pin
 
 FROM registry-nginx-php-fpm as production
 
+# sockets need for php-amqplib/php-amqplib:v3
+# mysqlnd need for vladimir-yuldashev/laravel-queue-rabbitmq
+# igbinary need for vladimir-yuldashev/laravel-queue-rabbitmq
 RUN set -xe \
     && apk -U --no-cache add \
         nano \
@@ -50,8 +53,11 @@ RUN set -xe \
         php81-cli \
         php81-pdo_pgsql \
         php81-mysqli \
+        php81-mysqlnd \
         php81-pdo_mysql \
+        php81-sockets \
         php81-redis \
+        php81-pecl-igbinary \
         php81-ctype \
         php81-opcache \
     && rm -rf /var/cache/apk/*
