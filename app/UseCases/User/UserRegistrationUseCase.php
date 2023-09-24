@@ -2,7 +2,9 @@
 
 namespace App\UseCases\User;
 
+use App\Events\User\Created;
 use App\Models\KirinBear\User;
+use Illuminate\Events\Dispatcher;
 use Illuminate\Hashing\HashManager;
 use Illuminate\Validation\Factory;
 use Illuminate\Validation\ValidationException;
@@ -11,11 +13,13 @@ class UserRegistrationUseCase
 {
     private HashManager $hashManager;
     private Factory $factoryValidator;
+    private Dispatcher $dispatcher;
 
-    public function __construct(Factory $factoryValidator, HashManager $hashManager)
+    public function __construct(Factory $factoryValidator, HashManager $hashManager, Dispatcher $dispatcher)
     {
         $this->hashManager = $hashManager;
         $this->factoryValidator = $factoryValidator;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -42,6 +46,8 @@ class UserRegistrationUseCase
         $user->name = 'Пользователь #'.rand(0, 99999999);
         $user->password = $this->hashManager->make($password);
         $user->save();
+
+        $this->dispatcher->dispatch(new Created($user->id, $user->email));
 
         return $user->id;
     }

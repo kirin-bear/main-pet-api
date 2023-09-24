@@ -72,7 +72,7 @@ return [
         ],
 
         /** @link https://laravel-news.com/laravel-rabbitmq-queue-driver */
-        \App\Enums\Queue::RABBITMQ => [
+        \App\Enums\Connections::RABBITMQ => [
             'driver' => 'rabbitmq',
             'hosts' => [
                 [

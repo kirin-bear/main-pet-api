@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Listeners\Visit;
 
-use App\Enums\Queue;
+use App\Enums\Connections;
 use App\Events\Visit\Created;
 use App\Jobs\VisitCreatedJob;
 
@@ -18,6 +18,6 @@ class CreatedListener
      */
     public function handle(Created $visitCreated): void
     {
-        dispatch(new VisitCreatedJob($visitCreated->getId()))->onConnection(Queue::RABBITMQ);
+        dispatch(new VisitCreatedJob($visitCreated->getId()))->onConnection(Connections::RABBITMQ);
     }
 }

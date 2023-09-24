@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-class Queue
+class Connections
 {
     public const RABBITMQ = 'rabbitmq';
-
 }

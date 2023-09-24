@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\User\Created as UserCreated;
 use App\Events\Visit\Created as VisitCreated;
+use App\Listeners\User\CreatedListener as UserCreatedListener;
 use App\Listeners\Visit\CreatedListener as VisitCreatedListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -21,6 +23,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         VisitCreated::class => [
             VisitCreatedListener::class,
+        ],
+        UserCreated::class => [
+            UserCreatedListener::class,
         ],
     ];
 
