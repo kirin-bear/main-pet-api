@@ -84,7 +84,7 @@ return [
                 ],
                 // ...
             ],
-            'worker' => \App\Queues\RabbitMQQueue::class,
+            'worker' => \App\Queues\RabbitMqQueue::class,
         ],
 
     ],
