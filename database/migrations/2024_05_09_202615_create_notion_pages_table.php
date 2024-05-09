@@ -13,20 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('notion_databases', function (Blueprint $table) {
+        Schema::create('notion_pages', function (Blueprint $table) {
             $table->uuid()->primary();
             $table->tinyText('title');
             $table->unsignedBigInteger('user_id');
             $table->uuid('parent_uuid');
             $table->string('parent_type', 15);
             $table->tinyText('url');
+            $table->json('properties');
             $table->json('raw_data');
             $table->boolean('in_trash');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index('parent_uuid');
-            $table->index('user_id');
+            $table->index(['user_id', 'parent_uuid']);
         });
     }
 
@@ -37,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notion_databases');
+        Schema::dropIfExists('notion_pages');
     }
 };

@@ -7,8 +7,10 @@ namespace App\UseCases\Notion;
 use App\Domains\Notion\Exceptions\ApiServiceException;
 use App\Domains\Notion\Services\Api;
 use App\Models\KirinBear\NotionDatabase;
+use App\Models\KirinBear\NotionPage;
 use App\Models\KirinBear\User;
 use App\Repositories\KirinBear\NotionDatabaseRepository;
+use App\Repositories\KirinBear\NotionPageRepository;
 use Illuminate\Support\Carbon;
 use JsonException;
 
@@ -16,11 +18,17 @@ class DatabasesSyncUseCase
 {
     private Api $api;
     private NotionDatabaseRepository $notionDatabaseRepository;
+    private NotionPageRepository $notionPageRepository;
 
-    public function __construct(Api $api, NotionDatabaseRepository $notionDatabaseRepository)
+    public function __construct(
+        Api $api,
+        NotionDatabaseRepository $notionDatabaseRepository,
+        NotionPageRepository $notionPageRepository
+    )
     {
         $this->api = $api;
         $this->notionDatabaseRepository = $notionDatabaseRepository;
+        $this->notionPageRepository = $notionPageRepository;
     }
 
     /**
@@ -34,30 +42,63 @@ class DatabasesSyncUseCase
 
         $userId = User::MAIN_USER_ID;
 
-        $inserts = [];
+        $uuidsDatabases = [];
+        $insertDatabases = [];
+        $insertPages = [];
 
         foreach ($uuids as $uuid) {
             $database = $this->api->getDatabase($uuid);
 
-            $notionDatabase = $this->notionDatabaseRepository->newModel();
-            $notionDatabase->uuid = $database->getUuid();
-            $notionDatabase->title = $database->getTitle();
-            $notionDatabase->user_id = $userId;
-            $notionDatabase->parent_uuid = $database->getParentObject()->getUuid();
-            $notionDatabase->parent_type = $database->getParentObject()->getType();
-            $notionDatabase->url = $database->getDescription()->getUrl();
-            $notionDatabase->raw_data = json_encode($database->getDescription()->getRawData(), JSON_THROW_ON_ERROR);
-            $notionDatabase->in_trash = $database->getDescription()->isInTrash();
-            $notionDatabase->updated_at = new Carbon();
+            $modelDatabase = $this->notionDatabaseRepository->newModel();
+            $modelDatabase->uuid = $database->getUuid();
+            $modelDatabase->title = $database->getTitle();
+            $modelDatabase->user_id = $userId;
+            $modelDatabase->parent_uuid = $database->getParentObject()->getUuid();
+            $modelDatabase->parent_type = $database->getParentObject()->getType();
+            $modelDatabase->url = $database->getDescription()->getUrl();
+            $modelDatabase->raw_data = json_encode($database->getDescription()->getRawData(), JSON_THROW_ON_ERROR);
+            $modelDatabase->in_trash = $database->getDescription()->isInTrash();
+            $modelDatabase->updated_at = new Carbon();
 
-            $inserts[] = $notionDatabase->toArray();
+            $insertDatabases[] = $modelDatabase->toArray();
+            $uuidsDatabases[] = $database->getUuid();
         }
 
-        if ($inserts) {
+        // вставляем
+        if ($insertDatabases) {
             $this->notionDatabaseRepository
                 ->createQueryBuilder()
-                ->upsert($inserts, [NotionDatabase::FIELD_NAME_UUID]);
+                ->upsert($insertDatabases, [NotionDatabase::FIELD_NAME_UUID]);
         }
+
+        // теперь просинхроним все страницы баз данных
+        foreach ($uuidsDatabases as $uuid) {
+            $pages = $this->api->getPagesByDatabaseUuid($uuid);
+
+            foreach ($pages as $page) {
+                $modelPage = $this->notionPageRepository->newModel();
+                $modelPage->uuid = $page->getUuid();
+                $modelPage->title = $page->getTitle();
+                $modelPage->user_id = $userId;
+                $modelPage->parent_uuid = $page->getParentObject()->getUuid();
+                $modelPage->parent_type = $page->getParentObject()->getType();
+                $modelPage->properties = json_encode($page->getProperties(), JSON_THROW_ON_ERROR);
+                $modelPage->url = $page->getDescription()->getUrl();
+                $modelPage->raw_data = json_encode($page->getDescription()->getRawData(), JSON_THROW_ON_ERROR);
+                $modelPage->in_trash = $page->getDescription()->isInTrash();
+                $modelPage->updated_at = new Carbon();
+
+                $insertPages[] = $modelPage->toArray();
+            }
+        }
+
+        // вставляем страницы
+        if ($insertPages) {
+            $this->notionPageRepository
+                ->createQueryBuilder()
+                ->upsert($insertPages, [NotionPage::FIELD_NAME_UUID]);
+        }
+
 
         return true;
     }

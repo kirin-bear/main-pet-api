@@ -4,32 +4,23 @@ declare(strict_types=1);
 
 namespace App\Domains\Notion\Entities;
 
-use App\Domains\Notion\ValueObject\DatabaseDescription;
+use App\Domains\Notion\ValueObject\PageDescription;
 
-class Database
+class Page
 {
-
     private string $uuid;
-
     private string $title;
-
+    private array $properties;
     private ParentObject $parentObject;
+    private PageDescription $description;
 
-    private DatabaseDescription $description;
-
-
-    /**
-     * @param string $uuid
-     * @param string $title
-     * @param ParentObject $parentObject
-     * @param DatabaseDescription $databaseDescription
-     */
-    public function __construct(string $uuid, string $title, ParentObject $parentObject, DatabaseDescription $databaseDescription)
+    public function __construct(string $uuid, string $title, array $properties, ParentObject $parentObject, PageDescription $description)
     {
         $this->uuid = $uuid;
         $this->title = $title;
+        $this->properties = $properties;
         $this->parentObject = $parentObject;
-        $this->description = $databaseDescription;
+        $this->description = $description;
     }
 
     public function getUuid(): string
@@ -42,12 +33,17 @@ class Database
         return $this->title;
     }
 
+    public function getProperties(): array
+    {
+        return $this->properties;
+    }
+
     public function getParentObject(): ParentObject
     {
         return $this->parentObject;
     }
 
-    public function getDescription(): DatabaseDescription
+    public function getDescription(): PageDescription
     {
         return $this->description;
     }

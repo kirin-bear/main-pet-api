@@ -22,6 +22,7 @@ use Illuminate\Support\Carbon;
  * @property int $in_trash
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
  * @method static \Illuminate\Database\Eloquent\Builder|NotionDatabase newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|NotionDatabase newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|NotionDatabase query()
@@ -35,6 +36,10 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Eloquent\Builder|NotionDatabase whereUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder|NotionDatabase whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|NotionDatabase whereUuid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|NotionDatabase onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|NotionDatabase whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|NotionDatabase withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|NotionDatabase withoutTrashed()
  * @mixin \Eloquent
  */
 class NotionDatabase extends AbstractModel
