@@ -16,4 +16,16 @@ class NotionDatabaseRepository extends AbstractModelRepository
     {
         return NotionDatabase::class;
     }
+
+    /**
+     * @param int $id
+     *
+     * @return int
+     */
+    public function getCountByUserId(int $id): int
+    {
+        return $this->createQueryBuilder()
+            ->where('user_id', $id)
+            ->count();
+    }
 }
