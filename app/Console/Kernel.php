@@ -26,6 +26,7 @@ class Kernel extends ConsoleKernel
     protected function commands(): void
     {
         $this->load(__DIR__.'/Commands/System');
+        $this->load(__DIR__.'/Commands/Notion');
         $this->load(__DIR__.'/Commands/Local');
 
         require base_path('routes/console.php');
