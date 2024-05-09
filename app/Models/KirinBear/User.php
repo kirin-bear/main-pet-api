@@ -47,6 +47,8 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public const MAIN_USER_ID = 1;
+
     /**
      * The attributes that are mass assignable.
      *

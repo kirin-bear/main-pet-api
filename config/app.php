@@ -175,6 +175,12 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * Developer's Service Provider
+         */
+        \App\Providers\NotionServiceProvider::class,
+        \App\Providers\RepositoriesServiceProvider::class,
+
     ],
 
     /*
