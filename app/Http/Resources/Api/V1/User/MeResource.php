@@ -15,10 +15,8 @@ class MeResource extends AbstractResource
         return [
             'id' => $this->resource->getId(),
             'email' => $this->resource->getEmail(),
-            'notion' => [
-                'count_databases' => $this->resource->getCountNotionDatabases(),
-                'count_pages' => $this->resource->getCountNotionPages(),
-            ],
+            'notion_count_databases' => $this->resource->getCountNotionDatabases(),
+            'notion_count_pages' => $this->resource->getCountNotionPages(),
         ];
     }
 }
