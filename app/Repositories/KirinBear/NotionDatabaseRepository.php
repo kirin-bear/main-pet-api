@@ -9,6 +9,7 @@ use App\Repositories\AbstractModelRepository;
 
 /**
  * @method NotionDatabase newModel()
+ * @method NotionDatabase|null find(string|int $id)
  */
 class NotionDatabaseRepository extends AbstractModelRepository
 {

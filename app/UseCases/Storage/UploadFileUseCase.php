@@ -5,22 +5,21 @@ declare(strict_types=1);
 namespace App\UseCases\Storage;
 
 use App\Models\KirinBear\User;
-use App\UseCase\Storage\Dto\FileDto;
+use App\UseCases\Storage\Dto\FileDto;
 use Exception;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Filesystem\AwsS3V3Adapter;
 use Illuminate\Filesystem\FilesystemManager;
+use RuntimeException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UploadFileUseCase
 {
     private FilesystemManager $filesystemManager;
-    private Filesystem $filesystem;
 
-    public function __construct(FilesystemManager $filesystemManager, Filesystem $filesystem)
+    public function __construct(FilesystemManager $filesystemManager)
     {
         $this->filesystemManager = $filesystemManager;
-        $this->filesystem = $filesystem;
     }
 
     /**
@@ -36,7 +35,7 @@ class UploadFileUseCase
         $files = [];
 
         if (!$disk instanceof AwsS3V3Adapter) {
-            throw new Exception("Неизвестный адаптер для работы с файлами");
+            throw new RuntimeException("Неизвестный адаптер для работы с файлами");
         }
 
         foreach ($uploadedFiles as $uploadedFile) {

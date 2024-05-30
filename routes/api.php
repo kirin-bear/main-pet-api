@@ -28,4 +28,6 @@ Route::group(['prefix' => '/v1'], function () {
 
     Route::get('/memory', [MemoryController::class, 'index']);
     Route::get('/memory/link', [MemoryLinkController::class, 'index']);
+
+    Route::get('/finance/invoice-month', [\App\Http\Controllers\Api\V1\Finance\InvoiceMonthController::class, 'index']);
 });

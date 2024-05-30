@@ -6,6 +6,7 @@ namespace App\Repositories;
 
 use App\Models\AbstractModel;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 abstract class AbstractModelRepository
 {
@@ -40,5 +41,15 @@ abstract class AbstractModelRepository
         $className = $this->getClassName();
 
         return $className::query();
+    }
+
+    /**
+     * @param string|int $id
+     *
+     * @return AbstractModel|Model|null
+     */
+    public function find(string|int $id): null|AbstractModel|Model
+    {
+        return $this->createQueryBuilder()->find($id);
     }
 }

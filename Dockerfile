@@ -62,6 +62,9 @@ RUN set -xe \
         php81-opcache \
     && rm -rf /var/cache/apk/*
 
+# после установки, можно разом удалить все пакет через apk del build-dependencies
+# RUN apk add --virtual build-dependencies
+
 COPY --chown=app:app . /var/www
 COPY docker/php/conf.d/php.prod.ini /etc/php81/conf.d/php.ini
 
