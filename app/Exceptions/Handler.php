@@ -4,7 +4,9 @@ namespace App\Exceptions;
 
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
@@ -49,9 +51,9 @@ class Handler extends ExceptionHandler
      *
      * @param ValidationException $e
      * @param $request
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
+     * @return JsonResponse|\Illuminate\Http\Response|Response
      */
-    protected function convertValidationExceptionToResponse(ValidationException $e, $request)
+    protected function convertValidationExceptionToResponse(ValidationException $e, $request): \Illuminate\Http\Response|JsonResponse|Response
     {
         return $this->invalidJson($request, $e);
     }
@@ -61,9 +63,9 @@ class Handler extends ExceptionHandler
      *
      * @param $request
      * @param AuthenticationException $exception
-     * @return \Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\Response
+     * @return JsonResponse|Response
      */
-    protected function unauthenticated($request, AuthenticationException $exception)
+    protected function unauthenticated($request, AuthenticationException $exception): JsonResponse|Response
     {
         return response()->json(['message' => $exception->getMessage()], 401);
     }

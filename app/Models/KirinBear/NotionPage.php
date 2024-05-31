@@ -40,6 +40,9 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Eloquent\Builder|NotionPage whereUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder|NotionPage whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|NotionPage whereUuid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|NotionPage onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|NotionPage withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|NotionPage withoutTrashed()
  * @mixin Eloquent
  */
 class NotionPage extends AbstractModel

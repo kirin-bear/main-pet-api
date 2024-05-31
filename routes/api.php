@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => '/v1'], function () {
+Route::group(['prefix' => '/v1'], static function () {
     Route::post('/visit', [VisitController::class, 'store'])
         ->withoutMiddleware('auth:api');
 
