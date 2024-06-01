@@ -33,7 +33,8 @@ class HandleRequestUseCase
             'response' => [
                 'text' => 'Сохранила запрос под номером ' . $alisaWebhook->id,
                 'tts' => 'Сохранила запрос под номером ' . $alisaWebhook->id,
-            ]
+            ],
+            'version' => '1.0',
         ];
         $alisaWebhook->response = json_encode($response, JSON_THROW_ON_ERROR);
         $alisaWebhook->save();
