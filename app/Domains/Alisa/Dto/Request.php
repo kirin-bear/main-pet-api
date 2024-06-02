@@ -14,13 +14,15 @@ class Request
     private string $userId;
     private string $applicationId;
     private array $params;
+    private string $command;
 
-    public function __construct(string $sessionId, string $skillId, string $userId, string $applicationId, array $params)
+    public function __construct(string $sessionId, string $skillId, string $userId, string $applicationId, string $command, array $params)
     {
         $this->sessionId = $sessionId;
         $this->skillId = $skillId;
         $this->userId = $userId;
         $this->applicationId = $applicationId;
+        $this->command = $command;
         $this->params = $params;
     }
 
@@ -31,6 +33,7 @@ class Request
                 $array['session']['skill_id'] ?? '',
                 $array['session']['user']['user_id'] ?? '',
                 $array['session']['application']['application_id'] ?? '',
+            $array['request']['command'] ?? '',
             $array
         );
     }
@@ -71,6 +74,11 @@ class Request
     public function getApplicationId(): string
     {
         return $this->applicationId;
+    }
+
+    public function getCommand(): string
+    {
+        return $this->command;
     }
 
 }

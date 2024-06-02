@@ -9,5 +9,29 @@ namespace App\Domains\Alisa\Dto;
  */
 class Response
 {
+    private string $version = '1.0';
+    private string $text;
+
+    public function __construct(string $text)
+    {
+        $this->text = $text;
+    }
+
+    public function getText(): string
+    {
+        return $this->text;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'version' => $this->version,
+            'response' => [
+                'text' => $this->text,
+                'tts' => $this->text,
+            ],
+        ];
+
+    }
 
 }
