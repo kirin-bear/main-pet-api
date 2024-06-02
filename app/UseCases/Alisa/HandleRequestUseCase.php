@@ -35,7 +35,7 @@ class HandleRequestUseCase
         $alisaWebhook->save();
 
         $text = 'Не понимаю вас, отстаньте';
-        if (($request->getUserId() === UserEnums::Me->value) && $request->getCommand() === 'синхронизируй мои финансы') {
+        if ($request->getUserId() === UserEnums::Me->value && $request->getCommand() === 'синхронизируй мои финансы') {
             $databases = config('notion.sync_databases');
             $this->databasesSyncUseCase->execute(... $databases);
             $text = 'Финансы синхронизированы';

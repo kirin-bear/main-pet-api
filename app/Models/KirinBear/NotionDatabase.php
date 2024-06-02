@@ -49,6 +49,7 @@ class NotionDatabase extends AbstractModel
     public const FIELD_NAME_UUID = 'uuid';
 
     protected $primaryKey = self::FIELD_NAME_UUID;
+    protected $keyType = 'string';
 
     protected function serializeDate(DateTimeInterface $date): string
     {
