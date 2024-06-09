@@ -20,6 +20,7 @@ class RepositoriesServiceProvider extends ServiceProvider
     {
         $this->app->singleton(NotionDatabaseRepository::class);
         $this->app->singleton(NotionPageRepository::class);
+        $this->app->singleton(AlisaServiceProvider::class);
     }
 
 }

@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace App\Domains\Alisa\Dto;
+namespace App\Domains\Alisa\ValueObject;
 
 /**
  * Структура запроса - https://yandex.ru/dev/dialogs/alice/doc/request.html
  */
 class Request
 {
-    private string $sessionId;
+    private Session $session;
     private string $skillId;
     private string $userId;
     private string $applicationId;
     private array $params;
     private string $command;
 
-    public function __construct(string $sessionId, string $skillId, string $userId, string $applicationId, string $command, array $params)
+    public function __construct(Session $session, string $skillId, string $userId, string $applicationId, string $command, array $params)
     {
-        $this->sessionId = $sessionId;
+        $this->session = $session;
         $this->skillId = $skillId;
         $this->userId = $userId;
         $this->applicationId = $applicationId;
@@ -29,10 +29,13 @@ class Request
     public static function fromArray(array $array): self
     {
         return new self(
-            $array['session']['session_id'] ?? '',
-                $array['session']['skill_id'] ?? '',
-                $array['session']['user']['user_id'] ?? '',
-                $array['session']['application']['application_id'] ?? '',
+            new Session(
+                $array['session']['session_id'] ?? '',
+                    $array['session']['new'] ?? false
+            ),
+            $array['session']['skill_id'] ?? '',
+            $array['session']['user']['user_id'] ?? '',
+            $array['session']['application']['application_id'] ?? '',
             $array['request']['command'] ?? '',
             $array
         );
@@ -42,14 +45,6 @@ class Request
     public function getParams(): array
     {
         return $this->params;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSessionId(): string
-    {
-        return $this->sessionId;
     }
 
     /**
@@ -79,6 +74,11 @@ class Request
     public function getCommand(): string
     {
         return $this->command;
+    }
+
+    public function getSession(): Session
+    {
+        return $this->session;
     }
 
 }

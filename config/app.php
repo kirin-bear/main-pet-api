@@ -180,6 +180,8 @@ return [
          */
         \App\Providers\NotionServiceProvider::class,
         \App\Providers\RepositoriesServiceProvider::class,
+        \App\Providers\AlisaServiceProvider::class,
+        \App\Providers\UseCaseServiceProvider::class,
 
     ],
 

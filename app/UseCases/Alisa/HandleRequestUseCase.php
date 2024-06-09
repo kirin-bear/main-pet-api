@@ -4,21 +4,22 @@ declare(strict_types=1);
 
 namespace App\UseCases\Alisa;
 
-use App\Domains\Alisa\Dto\Request;
 use App\Domains\Alisa\Dto\Response;
-use App\Domains\Alisa\Enums\UserEnums;
+use App\Domains\Alisa\Services\Replier;
+use App\Domains\Alisa\ValueObject\Request;
 use App\Repositories\KirinBear\AlisaWebhookRepository;
-use App\UseCases\Notion\DatabasesSyncUseCase;
 
 class HandleRequestUseCase
 {
     private AlisaWebhookRepository $alisaWebhookRepository;
-    private DatabasesSyncUseCase $databasesSyncUseCase;
+    private Replier $replier;
 
-    public function __construct(AlisaWebhookRepository $alisaWebhookRepository, DatabasesSyncUseCase $databasesSyncUseCase)
-    {
+    public function __construct(
+        AlisaWebhookRepository $alisaWebhookRepository,
+        Replier $replier
+    ) {
         $this->alisaWebhookRepository = $alisaWebhookRepository;
-        $this->databasesSyncUseCase = $databasesSyncUseCase;
+        $this->replier = $replier;
     }
 
     public function execute(array $params): array
@@ -27,18 +28,17 @@ class HandleRequestUseCase
         $request = Request::fromArray($params);
 
         $alisaWebhook = $this->alisaWebhookRepository->newModel();
-        $alisaWebhook->session_id = $request->getSessionId();
+        $alisaWebhook->session_id = $request->getSession()->getId();
         $alisaWebhook->application_id = $request->getApplicationId();
         $alisaWebhook->user_id = $request->getUserId();
         $alisaWebhook->skill_id = $request->getSkillId();
         $alisaWebhook->request = json_encode($request->getParams(), JSON_THROW_ON_ERROR);
         $alisaWebhook->save();
 
-        $text = 'Не понимаю вас, отстаньте';
-        if ($request->getUserId() === UserEnums::Me->value && $request->getCommand() === 'синхронизируй мои финансы') {
-            $databases = config('notion.sync_databases');
-            $this->databasesSyncUseCase->execute(... $databases);
-            $text = 'Финансы синхронизированы';
+        if ($request->getSession()->isNew()) {
+            $text = $this->replier->hello();
+        } else {
+            $text = $this->replier->doAndReply($request);
         }
 
         $responseArray = (new Response($text))->toArray();

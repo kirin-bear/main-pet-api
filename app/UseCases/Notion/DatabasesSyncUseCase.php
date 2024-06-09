@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\UseCases\Notion;
 
+use App\Domains\Alisa\Enums\UserEnums;
+use App\Domains\Alisa\Interfaces\DoItForAlisaInterface;
+use App\Domains\Alisa\ValueObject\Request;
 use App\Domains\Notion\Exceptions\ApiServiceException;
 use App\Domains\Notion\Services\Api;
 use App\Models\KirinBear\NotionDatabase;
@@ -14,7 +17,7 @@ use App\Repositories\KirinBear\NotionPageRepository;
 use Illuminate\Support\Carbon;
 use JsonException;
 
-class DatabasesSyncUseCase
+class DatabasesSyncUseCase implements DoItForAlisaInterface
 {
     private Api $api;
     private NotionDatabaseRepository $notionDatabaseRepository;
@@ -103,4 +106,20 @@ class DatabasesSyncUseCase
         return true;
     }
 
+    /**
+     * @param Request $request
+     * @return string|null
+     * @throws ApiServiceException
+     *
+     * @throws JsonException
+     */
+    public function doItForAlisaAndReply(Request $request): ?string
+    {
+        if ($request->getUserId() !== UserEnums::Me->value) {
+            return null;
+        }
+        $databases = config('notion.sync_databases');
+        $this->execute(... $databases);
+        return 'Отправлена команда на синхронизацию финансов';
+    }
 }
