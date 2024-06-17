@@ -31,12 +31,12 @@ class Transformer
     {
         $properties = [];
         $propertiesList = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
-        foreach ($propertiesList as $propertyName => $property) {
 
+        foreach ($propertiesList as $propertyName => $property) {
             try {
                 $property = $this->entityPropertyFactory->make(
-                    $propertyName,
                     $property['id'] ?? '',
+                    $propertyName,
                     PropertyTypeEnum::from($property['type'] ?? ''),
                     // приведем передачу $params к одному виду (Notion хранит разную структуру, при разных типах)
                     is_array($property[$property['type']])
@@ -53,6 +53,7 @@ class Transformer
             }
 
             $properties[] = $property;
+
         }
 
         return $properties;

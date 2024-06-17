@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Domains\Notion\Enums\PageUuidEnums;
+
 return [
     /** token in private integration  */
     'token' => env('NOTION_API_TOKEN'),
@@ -33,5 +35,25 @@ return [
         '3fe6dcf3ba2948778acbb972a27b5edf',
         '6afeac04478b411991eedc9d4ab6d896',
         'ea7bcb28a5ea44a1838423f3cb3bb6b3',
+    ],
+
+    /**
+     *
+     * Тэгирование полей баз данных для фильтрации данных по полям
+     * [
+     *      database_code => [
+     *          tag_code1 => [property_code1, property_code2, property_code1]
+     *      ]
+     * ]
+     */
+    'database_properties_tags' => [
+        PageUuidEnums::MonthReportUuid->value => [
+            'general' => ['KZYk', ';TVY', 'fy[['],
+            'general_percent' => ['HtkW', 'Ebvp'],
+            'category' => ['gWnw', 'cdGf'],
+            'fixed' => ['KW_:', 'eQL>', 'CX{E', '}LpN', 'D=ez', '=Sro', '>p[I'],
+            'dynamic' => ['\\SjE', '`H|o', 'Lh;O', 'PNHc', 'J<Lw', 'FiMB', ';pNV'],
+            'base' => ['KW_:','eQL>','CX{E','}LpN',';pNV','FiMB','z?^W','J<Lw','PNHc','Lh;O','aGsB','zf\H','qTR[','`H|o','>p[I','lRpL','=Sro','kE`x','\SjE','YKBp','rIlY','TE=;','D=ez','FPg@'],
+        ]
     ],
 ];

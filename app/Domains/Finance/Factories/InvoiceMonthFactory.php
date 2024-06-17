@@ -15,9 +15,9 @@ class InvoiceMonthFactory
      *
      * @return InvoiceMonth
      */
-    public function make(string $name, string $month, int $count): InvoiceMonth
+    public function make(string $name, string $month, int $count, string $type): InvoiceMonth
     {
-        return new InvoiceMonth($name, $month, $count);
+        return new InvoiceMonth($name, $month, $count, $type);
     }
 
 }

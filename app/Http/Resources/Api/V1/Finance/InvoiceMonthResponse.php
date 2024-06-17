@@ -23,6 +23,7 @@ class InvoiceMonthResponse extends AbstractResource
             'name' => $this->resource->getName(),
             'month' => $this->resource->getMonth(),
             'count' => $this->resource->getCount(),
+            'type' => $this->resource->getType(),
         ];
     }
 

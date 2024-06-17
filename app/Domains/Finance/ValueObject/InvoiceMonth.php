@@ -10,12 +10,14 @@ class InvoiceMonth
     private string $name;
     private string $month;
     private int $count;
+    private string $type;
 
-    public function __construct(string $name, string $month, int $count)
+    public function __construct(string $name, string $month, int $count, string $type)
     {
         $this->name = $name;
         $this->month = $month;
         $this->count = $count;
+        $this->type = $type;
     }
 
     public function getName(): string
@@ -31,6 +33,11 @@ class InvoiceMonth
     public function getCount(): int
     {
         return $this->count;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
     }
 
 }
