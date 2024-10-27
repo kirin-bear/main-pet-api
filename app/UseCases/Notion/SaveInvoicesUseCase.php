@@ -62,7 +62,7 @@ class SaveInvoicesUseCase
                         $explode = explode(' ', $month->title);
                         $date = Carbon::createFromDate($explode[1], DateHelper::convertMonthFromRusToInt($explode[0]));
 
-                        $invoice->name = $property->getName();
+                        $invoice->name = str_replace(' - SUM', '', $property->getName());
                         $invoice->type = $type->value;
                         $invoice->from = $date->startOfMonth();
                         $invoice->till = $date->copy()->endOfMonth();
