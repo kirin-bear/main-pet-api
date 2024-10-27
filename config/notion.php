@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Domains\Finance\Enums\InvoiceTypeEnum;
 use App\Domains\Notion\Enums\PageUuidEnums;
 
 return [
@@ -39,7 +40,7 @@ return [
 
     /**
      *
-     * Тэгирование полей баз данных для фильтрации данных по полям
+     * Тегирование полей баз данных для фильтрации данных по полям
      * [
      *      database_code => [
      *          tag_code1 => [property_code1, property_code2, property_code1]
@@ -48,12 +49,12 @@ return [
      */
     'database_properties_tags' => [
         PageUuidEnums::MonthReportUuid->value => [
-            'general' => ['KZYk', ';TVY', 'fy[['],
-            'general_percent' => ['HtkW', 'Ebvp'],
-            'category' => ['gWnw', 'cdGf'],
-            'fixed' => ['KW_:', 'eQL>', 'CX{E', '}LpN', 'D=ez', '=Sro', '>p[I'],
-            'dynamic' => ['\\SjE', '`H|o', 'Lh;O', 'PNHc', 'J<Lw', 'FiMB', ';pNV'],
-            'base' => ['KW_:','eQL>','CX{E','}LpN',';pNV','FiMB','z?^W','J<Lw','PNHc','Lh;O','aGsB','zf\H','qTR[','`H|o','>p[I','lRpL','=Sro','kE`x','\SjE','YKBp','rIlY','TE=;','D=ez','FPg@'],
+            InvoiceTypeEnum::GENERAL->value => ['KZYk', ';TVY', 'fy[['],
+            InvoiceTypeEnum::PERCENTAGE_OF_INCOME->value => ['HtkW', 'Ebvp'],
+            InvoiceTypeEnum::EXPENSE_CATEGORY_TYPE->value => ['gWnw', 'cdGf'],
+            InvoiceTypeEnum::EXPENSE_FIXED_CATEGORY->value => ['KW_:', 'eQL>', 'CX{E', '}LpN', 'D=ez', '=Sro', '>p[I'],
+            InvoiceTypeEnum::EXPENSE_DYNAMIC_CATEGORY->value => ['\\SjE', '`H|o', 'Lh;O', 'PNHc', 'J<Lw', 'FiMB', ';pNV'],
+            InvoiceTypeEnum::EXPENSE_CATEGORY->value => ['KW_:','eQL>','CX{E','}LpN',';pNV','FiMB','z?^W','J<Lw','PNHc','Lh;O','aGsB','zf\H','qTR[','`H|o','>p[I','lRpL','=Sro','kE`x','\SjE','YKBp','rIlY','TE=;','D=ez','FPg@'],
         ]
     ],
 ];
