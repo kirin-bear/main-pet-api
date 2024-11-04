@@ -41,6 +41,7 @@ class InvoiceMonthIndexUseCase
     public function execute(int $userId, string $type): array
     {
         $monthInvoices = [];
+        // получим месячные отчеты
         $invoices = $this->financeInvoiceRepository->getInvoicesMonth($userId, $type);
 
         foreach ($invoices as $invoice) {
