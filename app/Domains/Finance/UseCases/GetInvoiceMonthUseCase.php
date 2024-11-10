@@ -9,7 +9,7 @@ use App\Domains\Finance\ValueObject\InvoiceMonth;
 use App\Repositories\KirinBear\FinanceInvoiceRepository;
 use Carbon\Carbon;
 
-class InvoiceMonthIndexUseCase
+class GetInvoiceMonthUseCase
 {
     private InvoiceMonthFactory $invoiceMonthFactory;
     private FinanceInvoiceRepository $financeInvoiceRepository;

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Domains\Alisa\UseCases\HandleRequestUseCase;
-use App\Domains\Finance\UseCases\InvoiceMonthIndexUseCase;
+use App\Domains\Finance\UseCases\GetInvoiceMonthUseCase;
 use App\Domains\Memories\UseCases\MemoryIndexUseCase;
 use App\Domains\Memories\UseCases\MemoryLinkIndexUseCase;
 use App\Domains\Notion\UseCases\DatabasesSyncUseCase;
@@ -29,7 +29,7 @@ class UseCaseServiceProvider extends ServiceProvider
         $this->app->singleton(HandleRequestUseCase::class);
 
         // finance
-        $this->app->singleton(InvoiceMonthIndexUseCase::class);
+        $this->app->singleton(GetInvoiceMonthUseCase::class);
 
         // memory
         $this->app->singleton(MemoryIndexUseCase::class);
