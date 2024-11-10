@@ -12,8 +12,8 @@ return [
         'настюша шадрина' => 'пиздатенькая девчонка',
     ],
     'actions' => [
-        'синхронизируй мои финансы' => \App\UseCases\Notion\DatabasesSyncUseCase::class,
-        'актуализируй мои финансы' => \App\UseCases\Notion\DatabasesSyncUseCase::class,
-        'обнови мои финансы' => \App\UseCases\Notion\DatabasesSyncUseCase::class,
+        'синхронизируй мои финансы' => \App\Domains\Notion\UseCases\DatabasesSyncUseCase::class,
+        'актуализируй мои финансы' => \App\Domains\Notion\UseCases\DatabasesSyncUseCase::class,
+        'обнови мои финансы' => \App\Domains\Notion\UseCases\DatabasesSyncUseCase::class,
     ],
 ];

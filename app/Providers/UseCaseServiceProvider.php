@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\UseCases\Alisa\HandleRequestUseCase;
-use App\UseCases\Finance\InvoiceMonthIndexUseCase;
-use App\UseCases\Memory\MemoryIndexUseCase;
-use App\UseCases\Memory\MemoryLinkIndexUseCase;
-use App\UseCases\Notion\DatabasesSyncUseCase;
-use App\UseCases\Storage\UploadFileUseCase;
+use App\Domains\Alisa\UseCases\HandleRequestUseCase;
+use App\Domains\Finance\UseCases\InvoiceMonthIndexUseCase;
+use App\Domains\Memories\UseCases\MemoryIndexUseCase;
+use App\Domains\Memories\UseCases\MemoryLinkIndexUseCase;
+use App\Domains\Notion\UseCases\DatabasesSyncUseCase;
+use App\Domains\Storage\UseCases\UploadFileUseCase;
 use App\UseCases\User\UserInformationGetUseCase;
 use App\UseCases\User\UserRegistrationUseCase;
 use App\UseCases\Visit\VisitStoreUseCase;

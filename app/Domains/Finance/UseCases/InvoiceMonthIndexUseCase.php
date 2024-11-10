@@ -2,20 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\UseCases\Finance;
+namespace App\Domains\Finance\UseCases;
 
 use App\Domains\Finance\Factories\InvoiceMonthFactory;
-use App\Domains\Finance\Services\Invoice;
 use App\Domains\Finance\ValueObject\InvoiceMonth;
-use App\Domains\Notion\Enums\PageUuidEnums;
-use App\Domains\Notion\Enums\PropertyTypeEnum;
-use App\Domains\Notion\Services\PropertyTag;
-use App\Domains\Notion\Services\Transformer;
-use App\Helpers\DateHelper;
-use App\Models\KirinBear\NotionPage;
-use App\Models\KirinBear\User;
 use App\Repositories\KirinBear\FinanceInvoiceRepository;
-use App\Repositories\KirinBear\NotionPageRepository;
 use Carbon\Carbon;
 
 class InvoiceMonthIndexUseCase

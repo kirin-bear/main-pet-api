@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands\Notion;
 
-use App\UseCases\Notion\SaveInvoicesUseCase;
+use App\Domains\Notion\UseCases\SaveInvoicesUseCase;
 use Illuminate\Console\Command;
 
 class SaveInvoicesCommand extends Command

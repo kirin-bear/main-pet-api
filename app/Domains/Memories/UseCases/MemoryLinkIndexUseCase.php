@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UseCases\Memory;
+namespace App\Domains\Memories\UseCases;
 
 use App\Domains\Memories\Entities\MemoryLink;
 use App\Domains\Memories\Services\EntitiesGenerator;

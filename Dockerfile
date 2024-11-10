@@ -33,6 +33,9 @@ FROM registry-nginx-php-fpm as production
 # sockets need for php-amqplib/php-amqplib:v3
 # mysqlnd need for vladimir-yuldashev/laravel-queue-rabbitmq
 # igbinary need for vladimir-yuldashev/laravel-queue-rabbitmq
+# gd need for phpspreadsheet
+# xmlreader need for phpspreadsheet
+# zip need for phpspreadsheet
 RUN set -xe \
     && apk -U --no-cache add \
         nano \
@@ -60,6 +63,9 @@ RUN set -xe \
         php81-pecl-igbinary \
         php81-ctype \
         php81-opcache \
+        php81-gd \
+        php81-xmlreader \
+        php81-zip \
     && rm -rf /var/cache/apk/*
 
 # после установки, можно разом удалить все пакет через apk del build-dependencies
