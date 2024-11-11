@@ -26,8 +26,6 @@ Route::group(['prefix' => '/v1'], static function () {
 
     Route::post('/storage/upload', [StorageController::class, 'upload']);
 
-    Route::post('/import/excel', [\App\Http\Controllers\Api\V1\ImportController::class, 'excel']);
-
     Route::get('/memory', [MemoryController::class, 'index']);
     Route::get('/memory/link', [MemoryLinkController::class, 'index']);
 
