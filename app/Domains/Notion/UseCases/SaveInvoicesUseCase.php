@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UseCases\Notion;
+namespace App\Domains\Notion\UseCases;
 
 use App\Domains\Finance\Enums\InvoiceTypeEnum;
 use App\Domains\Notion\Enums\PageUuidEnums;

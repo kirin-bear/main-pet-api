@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\Api\V1\Storage;
 
+use App\Domains\Storage\Dto\FileDto;
 use App\Http\Resources\AbstractResource;
-use App\UseCases\Storage\Dto\FileDto;
 
 /**
  * @property FileDto $resource

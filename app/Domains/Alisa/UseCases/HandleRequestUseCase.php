@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UseCases\Alisa;
+namespace App\Domains\Alisa\UseCases;
 
 use App\Domains\Alisa\Dto\Response;
 use App\Domains\Alisa\Services\Replier;

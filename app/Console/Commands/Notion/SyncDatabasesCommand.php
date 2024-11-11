@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Console\Commands\Notion;
 
 use App\Domains\Notion\Exceptions\ApiServiceException;
-use App\UseCases\Notion\DatabasesSyncUseCase;
+use App\Domains\Notion\UseCases\DatabasesSyncUseCase;
 use Illuminate\Console\Command;
 use JsonException;
 

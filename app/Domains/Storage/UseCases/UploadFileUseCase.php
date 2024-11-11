@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\UseCases\Storage;
+namespace App\Domains\Storage\UseCases;
 
+use App\Domains\Storage\Dto\FileDto;
 use App\Models\KirinBear\User;
-use App\UseCases\Storage\Dto\FileDto;
 use Exception;
-use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Filesystem\AwsS3V3Adapter;
 use Illuminate\Filesystem\FilesystemManager;
 use RuntimeException;

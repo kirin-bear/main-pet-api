@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UseCases\Notion;
+namespace App\Domains\Notion\UseCases;
 
 use App\Domains\Alisa\Enums\UserEnums;
 use App\Domains\Alisa\Interfaces\DoItForAlisaInterface;

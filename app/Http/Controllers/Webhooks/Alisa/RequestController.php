@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Webhooks\Alisa;
 
+use App\Domains\Alisa\UseCases\HandleRequestUseCase;
 use App\Http\Controllers\Controller;
-use App\UseCases\Alisa\HandleRequestUseCase;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
